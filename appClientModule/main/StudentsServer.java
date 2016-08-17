@@ -12,6 +12,8 @@ import servlets.Controller;
 
 public class StudentsServer {
     
+	
+	//Main method will configure the server with the home page file,Servlet 
 	 public static void main(String[] args) throws Exception
 	    {
 
