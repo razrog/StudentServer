@@ -2,9 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import com.google.gson.Gson;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import exceptions.DBFullException;
+import exceptions.GradeNotValidException;
 import exceptions.IdNotValidException;
 import exceptions.StudentAlreadyExsitsException;
 import exceptions.StudentNotFoundException;
@@ -26,36 +25,41 @@ public class Controller extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{		
+	{
+		handleRequest(request, response);
+	}
+	
+	private void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
 		DBManager manager = new DBManager();
+
+		String stringURL = "";
+		if (request.getQueryString()!=null)
+			stringURL = request.getRequestURL() + "?" +request.getQueryString();
+		else
+			stringURL = request.getRequestURL().toString();
 		
-		String message = (String) request.getAttribute("message");
-		if(message!=null || message!=""){
-			alert(response, message);
-		}
-		
-		String requstUrl = request.getRequestURL().toString();
+		System.out.println(stringURL);
 		
 		
-		if (requstUrl.contains("add"))
+		String requstUrl = request.getRequestURI().toString();
+
+		if (requstUrl.equals("/students/add"))
 			addNewStudentRequest(request, response,manager);
-		else if (requstUrl.contains("delete"))
+		else if (requstUrl.equals("/students/remove"))
 			deleteStudentRequest(request, response, manager);
-		else if (requstUrl.contains("show"))
+		else if (requstUrl.equals("/students/showStudent"))
 			getStudentDetails(request,response,manager);
-		else if(requstUrl.contains("fill"))
+		else if(requstUrl.equals("/students/fill"))
 			fillStudentDB(request,response,manager);
-		else if(requstUrl.contains("clear"))
+		else if(requstUrl.equals("/students/clear"))
 			clearStudentDB(request,response,manager);
 		else
 			response.sendRedirect(HOME);
-
 	}
-	
-	
 
 	private void fillStudentDB(HttpServletRequest request, HttpServletResponse response, DBManager manager) throws ServletException, IOException {
-		System.out.println(request.getRequestURL());
+
 		try {
 			manager.fillDB();
 			request.setAttribute("message","DB Was succesfully been Full");
@@ -63,64 +67,52 @@ public class Controller extends HttpServlet {
 			
 			
 		} catch (StudentAlreadyExsitsException | DBFullException | IOException e) {
-			response.getWriter().write("<h1>Error in Server </h1>" +
-					"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
-					+"<h1><a href='http://localhost:8080/'>Go Home</a></h1>");
-					e.printStackTrace();
+			response.getWriter().write("<h1>Internal Server Error</h1>" +
+										"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
+										+"<h1><a href='http://localhost:8080/'>Home</a></h1>");
 		}
 	}
 
 	private void clearStudentDB(HttpServletRequest request, HttpServletResponse response, DBManager manager) throws ServletException, IOException {
-		System.out.println(request.getRequestURL());
 		try {
 			manager.clearDB();
 			response.sendRedirect(HOME);
 			
 		} catch (IOException e) {
-			response.getWriter().write("<h1>Error in Server </h1>" +
-					"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
-					+"<h1><a href='http://localhost:8080/'>Go Home</a></h1>");
-					e.printStackTrace();
+			response.getWriter().write("<h1>Internal Server Error</h1>" +
+										"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
+										+"<h1><a href='http://localhost:8080/'>Home</a></h1>");
 		}
 	}
 	
 	
-
-//TODO!!!!!!
-	//TODO!!!!!!
-	//TODO!!!!!!
 	public void getStudentDetails(HttpServletRequest request, HttpServletResponse response,DBManager manager) throws ServletException, IOException{
-		try {
-			System.out.println(request.getRequestURL());
-			
+		try {			
 			String studentId = request.getParameter("studentId");			
 			StudentBean student = manager.getStudentByID(studentId);
 				
-			String json = new Gson().toJson(student);
 			
-			response.getWriter().write(json);
-
-		    response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().write(json);
+			response.getWriter().write("<h1>" +student.getName()+ " Details</h1>" +
+					"<table>"
+					+ " <tr><th>ID</th><td>" + student.getID() + "</td></tr>"
+					+ "<tr><th>Full Name</th><td>" + student.getName() + "</td></tr>"
+					+ "<tr><th>Gender</th><td>" + student.getGender() + "</td></tr>"
+					+ "<tr><th>Grade</th><td>" + student.getGP() + "</td></tr>"
+					+ "</table>"
+					+"<h1><a href='http://localhost:8080/'>Go Home</a></h1>");
 			
-		    response.sendRedirect(HOME);
-
 		
 			} catch (StudentNotFoundException e) {
-				response.getWriter().write("<h1>Error in Server </h1>" +
+				response.getWriter().write("<h1>Internal Server Error</h1>" +
 											"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
-											+"<h1><a href='http://localhost:8080/'>Go Home</a></h1>");
-				e.printStackTrace();
+											+"<h1><a href='http://localhost:8080/'>Home</a></h1>");
 			}
 	}
 
-	
-	
+
+
 	public void deleteStudentRequest(HttpServletRequest request, HttpServletResponse response,DBManager manager) throws ServletException, IOException{
-		try {
-			System.out.println(request.getRequestURL());
-			
+		try {			
 			String studentId = request.getParameter("studentId");			
 			manager.deleteStudent(studentId);
 				
@@ -129,18 +121,15 @@ public class Controller extends HttpServlet {
 			response.sendRedirect(HOME);
 		
 			} catch (StudentNotFoundException e) {
-				response.getWriter().write("<h1>Error in Server </h1>" +
+				response.getWriter().write("<h1>Internal Server Error</h1>" +
 											"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
-											+"<h1><a href='http://localhost:8080/'>Go Home</a></h1>");
-				e.printStackTrace();
+										+"<h1><a href='http://localhost:8080/'>Home</a></h1>");
 			}
 	}
 
 	public void addNewStudentRequest(HttpServletRequest request, HttpServletResponse response,DBManager manager) throws ServletException, IOException{
 		try {
-		System.out.println("[INFO]controller");		
-		System.out.println(request.getRequestURL());
-			
+	
 		String studentName = request.getParameter("studentName");
 		String studentId = request.getParameter("studentId");
 		String studentGPA = request.getParameter("studentGPA");
@@ -157,7 +146,6 @@ public class Controller extends HttpServlet {
 		student.setName(studentName);
 		student.setGP(studentGPA);
 		
-	
 		manager.addNewStudent(student);
 			
 		alert(response,"Student Was Succesfully Added");
@@ -166,11 +154,10 @@ public class Controller extends HttpServlet {
 
 			
 			
-		} catch (StudentAlreadyExsitsException | DBFullException | IdNotValidException e) {
-			response.getWriter().write("<h1>Error in Server </h1>" +
+		} catch (StudentAlreadyExsitsException | DBFullException | IdNotValidException | GradeNotValidException e) {
+			response.getWriter().write("<h1>Internal Server Error</h1>" +
 										"<h2>[INFO]\t"+ e.getMessage() +"</h2>"
-										+"<h1><a href='http://localhost:8080/'>Go Home</a></h1>");
-			e.printStackTrace();
+										+"<h1><a href='http://localhost:8080/'>Home</a></h1>");
 		}
 		
 	}
