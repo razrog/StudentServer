@@ -1,5 +1,6 @@
 package persistance;
 
+import exceptions.GradeNotValidException;
 import exceptions.IdNotValidException;
 
 public class StudentBean {
@@ -11,7 +12,6 @@ public class StudentBean {
 	
 	
 	public StudentBean(String id,String name,String gender ,double gpa){
-		
 		this.id = id; 
 		this.name = name; 
 		this.gender = gender; 
@@ -19,13 +19,11 @@ public class StudentBean {
 	}
 	public StudentBean(){}
 	
-	
-	
 	public String getID() {
 		return id;
 	}
 	public void setID(String iD) throws IdNotValidException {
-		if (iD==null || iD.equals(""))
+		if (iD==null || iD.equals("") || !iD.matches("[0-9]+"))
 			throw new IdNotValidException("You must pass Valid ID");
 		id = iD;
 	}
@@ -41,7 +39,9 @@ public class StudentBean {
 	public double getGP() {
 		return gpa;
 	}
-	public void setGP(String gP) {
+	public void setGP(String gP) throws GradeNotValidException {
+		if(!gP.matches("([0-9]*)\\.([0-9]*)"))
+			throw new GradeNotValidException("You Must Pass A valid Grade - only numbers (Example - 98.5)");
 		if(gP.equals(""))
 			gpa = 90;
 		else

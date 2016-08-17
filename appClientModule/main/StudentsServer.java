@@ -20,11 +20,9 @@ public class StudentsServer {
 	        String HOME_PATH = "appClientModule/META-INF/home.html";
 	        //Resource Handler will handle the deployment of the homePage file. 
 	        ResourceHandler resource_handler = new ResourceHandler();
-	        
-	        resource_handler.setWelcomeFiles(new String[]{ HOME_PATH });
-	        
-	        resource_handler.setResourceBase(".");
 	 
+	        resource_handler.setWelcomeFiles(new String[]{ HOME_PATH });
+	        resource_handler.setResourceBase(".");
 	        
 	        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);	
 	    	  
@@ -37,7 +35,7 @@ public class StudentsServer {
 	        	        
 	        server.setHandler(handlers);
 
-	   s
+	   
 	        server.start();
 	        server.join();
 		 

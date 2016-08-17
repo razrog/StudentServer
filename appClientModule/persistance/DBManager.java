@@ -16,7 +16,7 @@ import exceptions.StudentNotFoundException;
 public class DBManager {
 
 	
-	final String PATH_TO_DB = "/source/students.csv";
+	final String PATH_TO_DB = "/source/students.tsv";
 	private HashMap<String,StudentBean> map = null; 
 	
 	
@@ -102,7 +102,7 @@ public class DBManager {
 		int db_size = map.size();
 		int id = 99999993;
 		while(db_size<1000){
-			addNewStudent(new StudentBean(id+"", "Israel Israeli", "F", 52));
+			addNewStudent(new StudentBean(id+"", "Israel Israeli", "Female", 52));
 			id-=1;
 			db_size+=1;
 		}
