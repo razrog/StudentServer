@@ -3,7 +3,7 @@
 
 #deploy
 
-1.git clone https://github.com/razrog/StudentServer.git \n
-2.cd StudentServer/ \n
-3.java -jar startServer.jar \n
-3.open http://localhost:8080/ \n 
+1.git clone https://github.com/razrog/StudentServer.git
+2.cd StudentServer/ 
+3.java -jar startServer.jar 
+3.open http://localhost:8080/ 
