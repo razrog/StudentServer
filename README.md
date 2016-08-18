@@ -15,16 +15,16 @@
 
 ###Main Requests : 
 
-	· /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
-		· Adds New Student to the system - Only 'studentID ' is mandatory
-	· /students/remove?studentId=1234
-		· Removes student from System by given id
-	· /students/showStudent?studentId=1234
-		· Get Student details by given id
-	· /students/fill 
-		· Fill All the data file with random values
-	· /students/clear
-		· Empty the File
+	##### /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
+		##### Adds New Student to the system - Only 'studentID ' is mandatory
+	##### /students/remove?studentId=1234
+		##### Removes student from System by given id
+	##### /students/showStudent?studentId=1234
+		##### Get Student details by given id
+	##### /students/fill 
+		##### Fill All the data file with random values
+	##### /students/clear
+		##### Empty the File
 	
 
 In order to load fast response to each request. The system was build in such way : 
