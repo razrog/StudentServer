@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Jinni - Students Server</title>
+<style>
+
+div,a
+{
+    display: inline-block;
+    padding: 0 20px;
+    margin-right:4px;
+    background:#F7F7F7;
+    color:Black;
+    text-decoration:none;
+    font: normal 12px Arial;
+    line-height: 24px;
+    border:1px solid #CAD0DB;
+    border-bottom:4;
+    color:#666;
+    vertical-align:top;
+    text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+
+<h1>Student Server System</h1>
+
+
+
+
+
+<div>
+
+<h2>Add New Student</h2>
+<form name="addNewStudent" method="get" action="students/add">
+ID     : <input type="text" name="studentId" /><br />
+Name   : <input type="text" name="studentName" /><br />
+Gender : Male<input type="radio" name="studentGender" value="M"/>Female<input type="radio" name="studentGender" value="F"/><br />
+GPA    : <input type="text" name="studentGPA" /><br />
+
+<input type="submit" value="Submit"  />
+</form>
+
+</div>
+
+<div>
+
+<h2>Delete Student</h2>
+<form name="deleteStudent" method="get" action="students/remove">
+
+ID :     <input type="text" name="studentId" /><br />
+
+<input type="submit" value="Submit" />
+</form>
+</div>
+
+<div>
+<h2>View Student Details</h2>
+<form name="getStudent" method="get" action="students/showStudent">
+
+ID :     <input type="text" name="studentId" /><br />
+
+<input type="submit" value="Submit" />
+</form>
+</div>
+
+<div>
+<h2>Extra Functions</h2>
+<a href="students/fill" >Load File With Random Values</a>
+<a href="students/clear" >Empty File</a>
+
+</div>
+
+</body>
+</html>
