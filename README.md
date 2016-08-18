@@ -13,10 +13,10 @@
 ##Server that manage students
 ###The Server will Add / Remove / Show  Student from file. 
 
-###Main Requests : 
+Main Requests : 
 
-	#### /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
-		#### Adds New Student to the system - Only 'studentID ' is mandatory
+	-- /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
+	 --Adds New Student to the system - Only 'studentID ' is mandatory
 	#### /students/remove?studentId=1234
 		##### Removes student from System by given id
 	##### /students/showStudent?studentId=1234
