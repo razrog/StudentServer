@@ -28,18 +28,18 @@ The Server will Add / Remove / Show  Student from file.
 ## Logic 
 In order to load fast response to each request. The system was build in such way: 
 
-	Caching Students into **Map Object** - {Key : ID , Value : Student (Object)}
-	**Thread** that write the map to Disk every 10 second (Should be 1 minute , but for the testing purpose it was set into 10 seconds)
+	Caching Students into Map Object - {Key : ID , Value : Student (Object)}
+	Thread - write the map to Disk every 10 second (Should be 1 minute , but for the testing purpose it was set into 10 seconds)
 
 # Components
 ## Server 
  Jetty Server was used in order to deploy a quick java application on server. 
-In the project:
+ 
 	1.loads file resources (home.html)
 	2.loads servlets to the server (controller.java) 
 	3.Starts Server 
 	
-##Student - basic Student Object :
+##Student - basic Student Object
 Used to write/return a student from the System
 	· StudentID
 	· StudentName
@@ -50,15 +50,17 @@ Used to write/return a student from the System
 Has all the server methods 
 
 ##FileResourceHandler  
-Created to deal with the File writing/deleting methods. 
+Created to deal with the File writing/deleting methods
+
 Contains : idToStudentMap - Cunncurent Map Object (String id , Student student)
 
-##saveToFileEveryMinute  Method - creates new Thread which writes the Map to the File every 10 seconds
+saveToFileEveryMinute  Method - creates new Thread which writes the Map to the File every 10 seconds
 
-All Methods (AddNewStudent , deleteStudent , getStudent) - Are being handle with the Map methods.  
+**All Methods** (AddNewStudent , deleteStudent , getStudent) - Are being handle with the Map methods.  
 
 
 ##Controller (Servlet) 
-Server's Main & Only Servlet
-	- Handle every request that the Server gets 
-Handle Server response
+###Server's Main & Only Servlet
+Handle every request that the Server gets 
+
+Handle Server responses
