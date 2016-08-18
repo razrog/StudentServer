@@ -8,16 +8,12 @@
 3. java -jar startServer.jar 
 3. open http://localhost:8080/ 
 
+#Introduction 
 
-Student Server 
+##Server that manage students
+###The Server will Add / Remove / Show  Student from file. 
 
-
-Introduction 
-
-Server that manage students
-The Server will Add / Remove / Show  Student from file. 
-
-Main Requests : 
+###Main Requests : 
 
 	- /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
 		○ Adds New Student to the system - Only 'studentID ' is mandatory
@@ -38,23 +34,23 @@ In order to load fast response to each request. The system was build in such way
 
 #Components
 
-Server  -  Jetty Server was used in order to deploy a quick java application on server. 
+###Server  -  Jetty Server was used in order to deploy a quick java application on server. 
 In the project:
 	1.loads file resources (home.html)
 	2.loads servlets to the server (controller.java) 
 	3.Starts Server 
 	
-Student - basic Student Object :
+###Student - basic Student Object :
 Used to write/return a student from the System
 	- StudentID
 	- StudentName
 	- Student Gender
 	- StudentGPA
 
-ResourceHandler (interface ) 
+###ResourceHandler (interface ) 
 Has all the server methods 
 
-FileResourceHandler  
+###FileResourceHandler  
 Created to deal with the File writing/deleting methods. 
 Contains : idToStudentMap - Cunncurent Map Object (String id , Student student)
 
@@ -63,7 +59,7 @@ saveToFileEveryMinute  Method - creates new Thread which writes the Map to the F
 All Methods (AddNewStudent , deleteStudent , getStudent) - Are being handle with the Map methods.  
 
 
-Controller (Servlet) 
+###Controller (Servlet) 
 Server's Main & Only Servlet
 	- Handle every request that the Server gets 
 Handle Server response
