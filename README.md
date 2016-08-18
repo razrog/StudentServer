@@ -1,7 +1,7 @@
 # StudentServer
 
 
-#deploy
+#Deploy Server
 
 1. git clone https://github.com/razrog/StudentServer.git
 2. cd StudentServer/ 
