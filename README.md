@@ -28,7 +28,7 @@ The Server will Add / Remove / Show  Student from file.
 ## Logic 
 In order to load fast response to each request. The system was build in such way: 
 
-	Caching Students into **Map Object ** - {Key : ID , Value : Student (Object)}
+	Caching Students into **Map Object** - {Key : ID , Value : Student (Object)}
 	**Thread** that write the map to Disk every 10 second (Should be 1 minute , but for the testing purpose it was set into 10 seconds)
 
 # Components
