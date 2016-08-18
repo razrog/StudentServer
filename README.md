@@ -15,15 +15,15 @@
 
 ###Main Requests : 
 
-	- /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
+	 /students/add?studentId=1234&studentName=Israel Israeli&studentGPA=90 
 		○ Adds New Student to the system - Only 'studentID ' is mandatory
-	- /students/remove?studentId=1234
+	 /students/remove?studentId=1234
 		○ Removes student from System by given id
-	- /students/showStudent?studentId=1234
+	 /students/showStudent?studentId=1234
 		○ Get Student details by given id
-	- /students/fill 
+	 /students/fill 
 		○ Fill All the data file with random values
-	- /students/clear
+	 /students/clear
 		○ Empty the File
 	
 
